@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ODataCollectionResponse } from '@sensenet/client-core'
 import moment from 'moment'
-import sortby from 'lodash.sortby'
+import orderby from 'lodash.orderby'
 import { createStyles, makeStyles } from '@material-ui/styles'
 import { List, ListItem, ListItemAvatar } from '@material-ui/core'
 import { v1 } from 'uuid'
@@ -59,8 +59,7 @@ const MainPanel: React.FunctionComponent = () => {
       )
       if (findevent) {
         findevent.event.push(event)
-        const valami = sortby(findevent.event, 'AllDay', ['asc'])
-        console.log('sort: ', valami)
+        findevent.event = orderby(findevent.event, 'AllDay', 'desc')
       } else {
         if (event[key]) {
           resultArray.push({

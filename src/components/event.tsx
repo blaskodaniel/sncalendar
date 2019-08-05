@@ -4,6 +4,7 @@ import { Avatar, createStyles, List, ListItem, ListItemAvatar, ListItemText, mak
 import { User } from '@sensenet/default-content-types'
 import CalendarEvent from '../CalendarEvent-type'
 import defavatar from '../assets/avatar-default.png'
+import { useRepository } from '../hooks/use-repository'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -30,6 +31,7 @@ export interface EventComponentProps {
 
 const EventComponent: React.FunctionComponent<EventComponentProps> = props => {
   const classes = useStyles()
+  const repo = useRepository()
   const timeAndLocationpart = (event: CalendarEvent) => {
     const start = moment(new Date(event.StartDate as string)).format('HH:mm')
     const end = moment(new Date(event.EndDate as string)).format('HH:mm')
@@ -48,8 +50,12 @@ const EventComponent: React.FunctionComponent<EventComponentProps> = props => {
             className={`${classes.parentlistelement} ${event.AllDay ? classes.alldayevent : classes.simpleevent}`}>
             <ListItemAvatar>
               <Avatar
-                alt="Remy Sharp"
-                src={(event.CreatedBy as User).Avatar!.Url === '' ? defavatar : (event.CreatedBy as User).Avatar!.Url}
+                alt="Avatar"
+                src={
+                  (event.CreatedBy as User).Avatar!.Url === ''
+                    ? defavatar
+                    : repo.configuration.repositoryUrl + (event.CreatedBy as User).Avatar!.Url
+                }
               />
             </ListItemAvatar>
             <ListItemText primary={event.DisplayName} secondary={timeAndLocationpart(event)} />
