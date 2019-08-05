@@ -1,38 +1,39 @@
 import React from 'react'
-import { Button, CssBaseline, Tooltip, Typography } from '@material-ui/core'
+import { Container, CssBaseline, Grid } from '@material-ui/core'
 import snLogo from './assets/sensenet_logo_transparent.png'
-import { useCurrentUser } from './hooks/use-current-user'
-import { useRepository } from './hooks/use-repository'
+import { NavBarComponent } from './components/navbar'
+import MainPanel from './components/mainpanel'
 
 /**
  * The main entry point of your app. You can start h@cking from here ;)
  */
 export const App: React.FunctionComponent = () => {
-  const usr = useCurrentUser()
-  const repo = useRepository()
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%',
-        height: '100%',
-        flexDirection: 'column',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundImage: `url(${snLogo})`,
-        backgroundSize: 'auto',
-      }}>
+    <>
       <CssBaseline />
-      <Typography variant="h3" gutterBottom>
-        Hello, {usr.Name} 😎
-      </Typography>
-      <Tooltip title="Return to the Login screen and select another repository">
-        <Button variant="outlined" color="primary" onClick={() => repo.authentication.logout()}>
-          Log out 🚪
-        </Button>
-      </Tooltip>
-    </div>
+      <NavBarComponent />
+      <Container
+        maxWidth="lg"
+        style={{
+          width: '100%',
+          minHeight: '80vh',
+          display: 'flex',
+          marginTop: '10px',
+          verticalAlign: 'middle',
+          alignItems: 'center',
+          justifyContent: 'flex-start',
+          flexDirection: 'column',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundImage: `url(${snLogo})`,
+          backgroundSize: 'auto',
+        }}>
+        <Grid container direction="column" justify="center">
+          <Grid item xs={12} style={{ alignSelf: 'center' }}>
+            <MainPanel />
+          </Grid>
+        </Grid>
+      </Container>
+    </>
   )
 }
