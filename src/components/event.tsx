@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import moment from 'moment'
 import { Avatar, createStyles, List, ListItem, ListItemAvatar, ListItemText, makeStyles } from '@material-ui/core'
 import { User } from '@sensenet/default-content-types'
 import CalendarEvent from '../CalendarEvent-type'
 import defavatar from '../assets/avatar-default.png'
 import { useRepository } from '../hooks/use-repository'
+import { SharedContext } from '../context/shared-context'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -15,6 +16,10 @@ const useStyles = makeStyles(() =>
       border: '1px solid rgba(0, 0, 0, 0.12)',
       borderRadius: '2%',
       marginBottom: '7px',
+      '&:hover': {
+        backgroundColor: '#bad892',
+        cursor: 'pointer',
+      },
     },
     alldayevent: {
       backgroundColor: '#d3daff',
@@ -32,6 +37,7 @@ export interface EventComponentProps {
 const EventComponent: React.FunctionComponent<EventComponentProps> = props => {
   const classes = useStyles()
   const repo = useRepository()
+  const sharedcontext = useContext(SharedContext)
   const timeAndLocationpart = (event: CalendarEvent) => {
     const start = moment(new Date(event.StartDate as string)).format('HH:mm')
     const end = moment(new Date(event.EndDate as string)).format('HH:mm')
@@ -45,21 +51,26 @@ const EventComponent: React.FunctionComponent<EventComponentProps> = props => {
     <List>
       {props.event.map(event => {
         return (
-          <ListItem
-            key={event.Id}
-            className={`${classes.parentlistelement} ${event.AllDay ? classes.alldayevent : classes.simpleevent}`}>
-            <ListItemAvatar>
-              <Avatar
-                alt="Avatar"
-                src={
-                  (event.CreatedBy as User).Avatar!.Url === ''
-                    ? defavatar
-                    : repo.configuration.repositoryUrl + (event.CreatedBy as User).Avatar!.Url
-                }
-              />
-            </ListItemAvatar>
-            <ListItemText primary={event.DisplayName} secondary={timeAndLocationpart(event)} />
-          </ListItem>
+          <div key={event.Id}>
+            <ListItem
+              onClick={() => {
+                sharedcontext.setEvent(event)
+                sharedcontext.setOpendisplaymodal(true)
+              }}
+              className={`${classes.parentlistelement} ${event.AllDay ? classes.alldayevent : classes.simpleevent}`}>
+              <ListItemAvatar>
+                <Avatar
+                  alt="Avatar"
+                  src={
+                    (event.CreatedBy as User).Avatar!.Url === ''
+                      ? defavatar
+                      : repo.configuration.repositoryUrl + (event.CreatedBy as User).Avatar!.Url
+                  }
+                />
+              </ListItemAvatar>
+              <ListItemText primary={event.DisplayName} secondary={timeAndLocationpart(event)} />
+            </ListItem>
+          </div>
         )
       })}
     </List>

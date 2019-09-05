@@ -8,6 +8,7 @@ import { v1 } from 'uuid'
 import { Query } from '@sensenet/query'
 import CalendarEvent from '../CalendarEvent-type'
 import { useRepository } from '../hooks/use-repository'
+import SharedProvider from '../context/shared-context'
 import EventComponent from './event'
 
 const useStyles = makeStyles(() =>
@@ -117,7 +118,7 @@ const MainPanel: React.FunctionComponent = () => {
   }, [repo])
 
   return (
-    <>
+    <SharedProvider>
       {data.map(element => {
         return (
           <List key={element.id} className={classes.root}>
@@ -128,12 +129,14 @@ const MainPanel: React.FunctionComponent = () => {
                   <span className={classes.daynumber}>{moment(new Date(element.date)).format('D')}</span>
                 </div>
               </ListItemAvatar>
-              <EventComponent event={element.event} />
+              <div>
+                <EventComponent event={element.event} />
+              </div>
             </ListItem>
           </List>
         )
       })}
-    </>
+    </SharedProvider>
   )
 }
 
