@@ -10,17 +10,30 @@ export const SharedContext = createContext<{
   opendisplaymodal: boolean
   setOpendisplaymodal: Dispatch<React.SetStateAction<boolean>>
   setEvent: Dispatch<React.SetStateAction<GenericContent | undefined>>
+  event: CalendarEvent
+  refreshcalendar: boolean
+  setRefreshcalendar: Dispatch<React.SetStateAction<boolean>>
 }>(null as any)
 
 const SharedProvider: React.FunctionComponent<any> = props => {
   const [openeditmodal, setOpeneditmodal] = useState(false)
   const [opendisplaymodal, setOpendisplaymodal] = useState(false)
   const [event, setEvent] = useState<CalendarEvent>(null as any)
+  const [refreshcalendar, setRefreshcalendar] = useState(false)
 
   return (
     <>
       <SharedContext.Provider
-        value={{ openeditmodal, setOpeneditmodal, setEvent, opendisplaymodal, setOpendisplaymodal }}>
+        value={{
+          openeditmodal,
+          setOpeneditmodal,
+          setEvent,
+          opendisplaymodal,
+          setOpendisplaymodal,
+          event,
+          refreshcalendar,
+          setRefreshcalendar,
+        }}>
         {props.children}
         {openeditmodal && event != null ? (
           <EditPropertiesDialog

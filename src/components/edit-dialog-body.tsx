@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { DialogContent, DialogTitle } from '@material-ui/core'
 import { EditView } from '@sensenet/controls-react'
 import { DialogProps } from '@material-ui/core/Dialog'
 import { ConstantContent } from '@sensenet/client-core'
+import { ContentType } from '@sensenet/default-content-types'
 import { useRepository } from '../hooks/use-repository'
 import { useSelectionService } from '../hooks/use-selection-service'
 import { CurrentContentContext, CurrentContentProvider } from '../context/current-context'
 import CalendarEvent from '../CalendarEvent-type'
+import { SharedContext } from '../context/shared-context'
 
 const EditPropertiesDialogBody: React.FunctionComponent<{
   contentId: number
@@ -14,13 +16,19 @@ const EditPropertiesDialogBody: React.FunctionComponent<{
 }> = props => {
   const selectionService = useSelectionService()
   const repo = useRepository()
+  const sharedcontext = useContext(SharedContext)
 
   const onSubmit = async (id: number, content: CalendarEvent) => {
     try {
-      await repo.patch({
+      const response = await repo.patch({
         idOrPath: id,
         content,
+        oDataOptions: {
+          select: 'all' as any,
+        },
       })
+      sharedcontext.setEvent(response.d) // Refresh the view dialog window
+      sharedcontext.setRefreshcalendar(!sharedcontext.refreshcalendar) // Refresh the main calendar list
       props.dialogProps.onClose && props.dialogProps.onClose(null as any, 'backdropClick')
     } catch (error) {
       console.log('Error: ', error)
@@ -39,7 +47,7 @@ const EditPropertiesDialogBody: React.FunctionComponent<{
               <DialogTitle>Edit</DialogTitle>
               <DialogContent>
                 <EditView
-                  content={content}
+                  content={content as ContentType}
                   repository={repo}
                   handleCancel={() =>
                     props.dialogProps.onClose && props.dialogProps.onClose(null as any, 'backdropClick')

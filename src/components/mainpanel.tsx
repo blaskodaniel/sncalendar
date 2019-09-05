@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ODataCollectionResponse } from '@sensenet/client-core'
 import moment from 'moment'
 import orderby from 'lodash.orderby'
@@ -8,7 +8,7 @@ import { v1 } from 'uuid'
 import { Query } from '@sensenet/query'
 import CalendarEvent from '../CalendarEvent-type'
 import { useRepository } from '../hooks/use-repository'
-import SharedProvider from '../context/shared-context'
+import { SharedContext } from '../context/shared-context'
 import EventComponent from './event'
 
 const useStyles = makeStyles(() =>
@@ -49,6 +49,7 @@ const MainPanel: React.FunctionComponent = () => {
   const classes = useStyles()
   const repo = useRepository()
   const [data, setData] = useState<GroupdByAny[]>([])
+  const sharedcontext = useContext(SharedContext)
 
   const groupByDay = function(xs: CalendarEvent[], key: keyof Pick<CalendarEvent, 'StartDate'>) {
     const resultArray: GroupdByAny[] = []
@@ -109,16 +110,15 @@ const MainPanel: React.FunctionComponent = () => {
       })
 
       const groupedby = groupByDay(result.d.results, 'StartDate')
-      console.log(groupedby)
       setData(groupedby)
     }
 
     // Load calendar datas from Repository
     loadCalendar()
-  }, [repo])
+  }, [repo, sharedcontext.refreshcalendar])
 
   return (
-    <SharedProvider>
+    <>
       {data.map(element => {
         return (
           <List key={element.id} className={classes.root}>
@@ -136,7 +136,7 @@ const MainPanel: React.FunctionComponent = () => {
           </List>
         )
       })}
-    </SharedProvider>
+    </>
   )
 }
 

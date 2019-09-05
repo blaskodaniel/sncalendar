@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import moment from 'moment'
+import striptags from 'striptags'
 import {
   Avatar,
   Card,
@@ -15,6 +16,7 @@ import {
 } from '@material-ui/core'
 import RoomIcon from '@material-ui/icons/Room'
 import WatchIcon from '@material-ui/icons/Watch'
+import NotesIcon from '@material-ui/icons/Notes'
 import EditOutlined from '@material-ui/icons/EditOutlined'
 import CalendarEvent from '../CalendarEvent-type'
 import { SharedContext } from '../context/shared-context'
@@ -124,6 +126,21 @@ export const ViewDialogBody: React.FunctionComponent<EditDialogBodyDialogProps> 
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText primary="Location" secondary={props.content.Location} />
+              </ListItem>
+            </List>
+          </Grid>
+          <Grid item>
+            <List className={classes.listitemroot}>
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar>
+                    <NotesIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary="Description"
+                  secondary={props.content.Description != undefined ? striptags(props.content.Description) : ''}
+                />
               </ListItem>
             </List>
           </Grid>
