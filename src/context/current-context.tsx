@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import Semaphore from 'semaphore-async-await'
 import { useRepository } from '../hooks/use-repository'
 import { useInjector } from '../hooks/use-injector'
+import { useRepositoryEvents } from '../hooks/use-repository-events'
 
 export const CurrentContentContext = React.createContext<GenericContent>(ConstantContent.PORTAL_ROOT)
 export const CurrentContentProvider: React.FunctionComponent<{
@@ -14,12 +15,12 @@ export const CurrentContentProvider: React.FunctionComponent<{
   const [loadLock] = useState(new Semaphore(1))
   const [content, setContent] = useState<GenericContent>(ConstantContent.PORTAL_ROOT)
   const repo = useRepository()
+  const events = useRepositoryEvents()
   const injector = useInjector()
   const [reloadToken, setReloadToken] = useState(1)
   const reload = () => setReloadToken(Math.random())
 
   useEffect(() => {
-    const events = injector.getEventHub(repo.configuration.repositoryUrl)
     const subscriptions = [
       events.onContentModified.subscribe((c: any) => {
         if (c.content.Id === content.Id) {
@@ -28,7 +29,7 @@ export const CurrentContentProvider: React.FunctionComponent<{
       }),
     ]
     return () => subscriptions.forEach(s => s.dispose())
-  }, [repo, content, injector])
+  }, [repo, content, injector, events.onContentModified])
 
   const [error, setError] = useState<Error | undefined>()
 
