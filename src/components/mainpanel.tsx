@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ODataCollectionResponse } from '@sensenet/client-core'
 import moment from 'moment'
-import sortby from 'lodash.sortby'
+import orderby from 'lodash.orderby'
 import { createStyles, makeStyles } from '@material-ui/styles'
 import { List, ListItem, ListItemAvatar } from '@material-ui/core'
 import { v1 } from 'uuid'
 import { Query } from '@sensenet/query'
 import CalendarEvent from '../CalendarEvent-type'
 import { useRepository } from '../hooks/use-repository'
+import { SharedContext } from '../context/shared-context'
 import EventComponent from './event'
 
 const useStyles = makeStyles(() =>
@@ -48,6 +49,7 @@ const MainPanel: React.FunctionComponent = () => {
   const classes = useStyles()
   const repo = useRepository()
   const [data, setData] = useState<GroupdByAny[]>([])
+  const sharedcontext = useContext(SharedContext)
 
   const groupByDay = function(xs: CalendarEvent[], key: keyof Pick<CalendarEvent, 'StartDate'>) {
     const resultArray: GroupdByAny[] = []
@@ -59,8 +61,7 @@ const MainPanel: React.FunctionComponent = () => {
       )
       if (findevent) {
         findevent.event.push(event)
-        const valami = sortby(findevent.event, 'AllDay', ['asc'])
-        console.log('sort: ', valami)
+        findevent.event = orderby(findevent.event, 'AllDay', 'desc')
       } else {
         if (event[key]) {
           resultArray.push({
@@ -109,13 +110,12 @@ const MainPanel: React.FunctionComponent = () => {
       })
 
       const groupedby = groupByDay(result.d.results, 'StartDate')
-      console.log(groupedby)
       setData(groupedby)
     }
 
     // Load calendar datas from Repository
     loadCalendar()
-  }, [repo])
+  }, [repo, sharedcontext.refreshcalendar])
 
   return (
     <>
@@ -129,7 +129,9 @@ const MainPanel: React.FunctionComponent = () => {
                   <span className={classes.daynumber}>{moment(new Date(element.date)).format('D')}</span>
                 </div>
               </ListItemAvatar>
-              <EventComponent event={element.event} />
+              <div>
+                <EventComponent event={element.event} />
+              </div>
             </ListItem>
           </List>
         )
