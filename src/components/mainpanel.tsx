@@ -10,6 +10,7 @@ import CalendarEvent from '../CalendarEvent-type'
 import { useRepository } from '../hooks/use-repository'
 import { SharedContext } from '../context/shared-context'
 import EventComponent from './event'
+import AddNewEvent from './add-new-event'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -110,6 +111,7 @@ const MainPanel: React.FunctionComponent = () => {
       })
 
       const groupedby = groupByDay(result.d.results, 'StartDate')
+      console.log(groupedby)
       setData(groupedby)
     }
 
@@ -121,21 +123,24 @@ const MainPanel: React.FunctionComponent = () => {
     <>
       {data.map(element => {
         return (
-          <List key={element.id} className={classes.root}>
-            <ListItem className={classes.nopadding}>
-              <ListItemAvatar className={classes.dayAvatar}>
+          <React.Fragment key={element.id}>
+            <List className={classes.root} data-month={moment(new Date(element.date)).format('MMMM')}>
+              <ListItem className={classes.nopadding}>
+                <ListItemAvatar className={classes.dayAvatar}>
+                  <div>
+                    <span className={classes.dayname}>{moment(new Date(element.date)).format('ddd')}</span>
+                    <span className={classes.daynumber}>{moment(new Date(element.date)).format('D')}</span>
+                  </div>
+                </ListItemAvatar>
                 <div>
-                  <span className={classes.dayname}>{moment(new Date(element.date)).format('ddd')}</span>
-                  <span className={classes.daynumber}>{moment(new Date(element.date)).format('D')}</span>
+                  <EventComponent event={element.event} />
                 </div>
-              </ListItemAvatar>
-              <div>
-                <EventComponent event={element.event} />
-              </div>
-            </ListItem>
-          </List>
+              </ListItem>
+            </List>
+          </React.Fragment>
         )
       })}
+      <AddNewEvent />
     </>
   )
 }

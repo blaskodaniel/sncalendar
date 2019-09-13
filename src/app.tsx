@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Container, CssBaseline, Grid } from '@material-ui/core'
 import snLogo from './assets/sensenet_logo_transparent.png'
 import { NavBarComponent } from './components/navbar'
@@ -11,19 +11,37 @@ import SharedProvider from './context/shared-context'
  */
 export const App: React.FunctionComponent = () => {
   const repo = useContext(RepositoryContext)
+  const [monthindicator, setMonthindicator] = useState('')
   repo.reloadSchema()
+
+  /**
+   * Month indicator
+   */
+  document.addEventListener('scroll', () => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+    if (scrollTop > 100) {
+      const ul = document.querySelectorAll('ul[data-month]')
+      ul.forEach((x: HTMLElement) => {
+        const rect = x.getBoundingClientRect()
+        const elemTop = rect.top
+        if (elemTop < 0 && elemTop < -64) {
+          setMonthindicator(x.dataset.month ? x.dataset.month : '')
+        }
+      })
+    }
+  })
 
   return (
     <>
       <CssBaseline />
-      <NavBarComponent />
+      <NavBarComponent month={monthindicator} />
       <Container
         maxWidth="lg"
         style={{
           width: '100%',
           minHeight: '80vh',
           display: 'flex',
-          marginTop: '10px',
+          marginTop: '65px',
           verticalAlign: 'middle',
           alignItems: 'center',
           justifyContent: 'flex-start',
