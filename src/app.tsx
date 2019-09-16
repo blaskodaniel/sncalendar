@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { Container, CssBaseline, Grid } from '@material-ui/core'
-import { array } from 'prop-types'
 import snLogo from './assets/sensenet_logo_transparent.png'
 import { NavBarComponent } from './components/navbar'
 import MainPanel from './components/mainpanel'
