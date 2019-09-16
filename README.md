@@ -1,4 +1,4 @@
-# sn-react-typescript-memoapp
+# sn-react-typescript-calendar
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/f3d58505-1366-49cc-b6f2-4b2fcc560966/deploy-status)](https://app.netlify.com/sites/sncalendar/deploys)
 
