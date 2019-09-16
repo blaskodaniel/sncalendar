@@ -7,18 +7,22 @@ import defavatar from '../assets/avatar-default.png'
 import { useRepository } from '../hooks/use-repository'
 import { SharedContext } from '../context/shared-context'
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles(theme =>
   createStyles({
     parentlistelement: {
       display: 'flex',
       flexDirection: 'row-reverse',
-      minWidth: '350px',
+      minWidth: '600px',
       border: '1px solid rgba(0, 0, 0, 0.12)',
       borderRadius: '2%',
       marginBottom: '7px',
       '&:hover': {
         backgroundColor: '#bad892',
         cursor: 'pointer',
+      },
+      [theme.breakpoints.down('sm')]: {
+        minWidth: '0',
+        width: '100%',
       },
     },
     alldayevent: {

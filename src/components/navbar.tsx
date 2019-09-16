@@ -22,9 +22,10 @@ const useStyles = makeStyles((theme: Theme) =>
 export const NavBarComponent: React.FunctionComponent = () => {
   const repo = useRepository()
   const classes = useStyles()
+
   return (
     <div className={classes.root}>
-      <AppBar position="relative">
+      <AppBar>
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             Calendar
