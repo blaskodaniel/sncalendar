@@ -111,7 +111,6 @@ const MainPanel: React.FunctionComponent = () => {
       })
 
       const groupedby = groupByDay(result.d.results, 'StartDate')
-      console.log(groupedby)
       setData(groupedby)
     }
 
