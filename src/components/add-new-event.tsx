@@ -6,7 +6,7 @@ import { SharedContext } from '../context/shared-context'
 /**
  * Style for component with Material UI
  */
-const useStyles: any = makeStyles((theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     fabAdd: {
       position: 'fixed',
