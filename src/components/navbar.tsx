@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
 /**
  * Navbar component
  */
-export const NavBarComponent: React.FunctionComponent<{ month: string }> = props => {
+export const NavBarComponent: React.FunctionComponent = () => {
   const repo = useRepository()
   const classes = useStyles()
 
@@ -28,7 +28,7 @@ export const NavBarComponent: React.FunctionComponent<{ month: string }> = props
       <AppBar>
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            {props.month}
+            Calendar
           </Typography>
           <Tooltip title="Return to the Login screen and select another repository">
             <Button color="inherit" onClick={() => repo.authentication.logout()}>
