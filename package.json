@@ -78,7 +78,6 @@
     "@sensenet/client-core": "^2.2.0",
     "@sensenet/controls-react": "^3.1.1",
     "@sensenet/default-content-types": "^2.0.1",
-    "@sensenet/redux": "^5.1.12",
     "@sensenet/repository-events": "^1.4.4",
     "@testing-library/react": "^9.1.4",
     "install": "^0.13.0",
