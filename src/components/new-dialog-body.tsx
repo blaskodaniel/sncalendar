@@ -20,7 +20,7 @@ const NewDialogBody: React.FunctionComponent<{
       <DialogContent>
         <NewView
           handleCancel={handleClose}
-          repository={repo}
+          repository={repo as any}
           contentTypeName={CalendarEvent.name}
           path={props.parentpath}
           onSubmit={async (parentPath, content) => {
