@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CalendarNotification CalendarNotification snapshot 1`] = `
+<WithStyles(ForwardRef(SnackbarContent))
+  action={
+    Array [
+      <ForwardRef(WithStyles)
+        aria-label="close"
+        color="inherit"
+        onClick={[MockFunction]}
+      >
+        <Memo(CloseIcon)
+          className="makeStyles-icon-5"
+        />
+      </ForwardRef(WithStyles)>,
+    ]
+  }
+  aria-describedby="client-snackbar"
+  className=""
+  message={
+    <span
+      className="makeStyles-message-7"
+      id="client-snackbar"
+    >
+      <UNDEFINED
+        className="makeStyles-icon-5 makeStyles-iconVariant-6"
+      />
+      Test message
+    </span>
+  }
+/>
+`;

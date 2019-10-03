@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Mainpanel Mainpanel snapshot 1`] = `
+<MainPanel>
+  <AddNewEvent>
+    <WithStyles(ForwardRef(Fab))
+      aria-label="Add new"
+      className="makeStyles-fabAdd-6"
+      color="secondary"
+      onClick={[Function]}
+      variant="extended"
+    >
+      <ForwardRef(Fab)
+        aria-label="Add new"
+        className="makeStyles-fabAdd-6"
+        classes={
+          Object {
+            "colorInherit": "MuiFab-colorInherit",
+            "disabled": "Mui-disabled",
+            "extended": "MuiFab-extended",
+            "focusVisible": "Mui-focusVisible",
+            "label": "MuiFab-label",
+            "primary": "MuiFab-primary",
+            "root": "MuiFab-root",
+            "secondary": "MuiFab-secondary",
+            "sizeMedium": "MuiFab-sizeMedium",
+            "sizeSmall": "MuiFab-sizeSmall",
+          }
+        }
+        color="secondary"
+        onClick={[Function]}
+        variant="extended"
+      >
+        <WithStyles(ForwardRef(ButtonBase))
+          aria-label="Add new"
+          className="MuiFab-root makeStyles-fabAdd-6 MuiFab-extended MuiFab-secondary"
+          component="button"
+          disabled={false}
+          focusRipple={true}
+          focusVisibleClassName="Mui-focusVisible"
+          onClick={[Function]}
+        >
+          <ForwardRef(ButtonBase)
+            aria-label="Add new"
+            className="MuiFab-root makeStyles-fabAdd-6 MuiFab-extended MuiFab-secondary"
+            classes={
+              Object {
+                "disabled": "Mui-disabled",
+                "focusVisible": "Mui-focusVisible",
+                "root": "MuiButtonBase-root",
+              }
+            }
+            component="button"
+            disabled={false}
+            focusRipple={true}
+            focusVisibleClassName="Mui-focusVisible"
+            onClick={[Function]}
+          >
+            <button
+              aria-label="Add new"
+              className="MuiButtonBase-root MuiFab-root makeStyles-fabAdd-6 MuiFab-extended MuiFab-secondary"
+              disabled={false}
+              onBlur={[Function]}
+              onClick={[Function]}
+              onDragLeave={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              tabIndex={0}
+              type="button"
+            >
+              <span
+                className="MuiFab-label"
+              >
+                <ForwardRef
+                  className="makeStyles-extendedIcon-7"
+                >
+                  <WithStyles(ForwardRef(SvgIcon))
+                    className="makeStyles-extendedIcon-7"
+                  >
+                    <ForwardRef(SvgIcon)
+                      className="makeStyles-extendedIcon-7"
+                      classes={
+                        Object {
+                          "colorAction": "MuiSvgIcon-colorAction",
+                          "colorDisabled": "MuiSvgIcon-colorDisabled",
+                          "colorError": "MuiSvgIcon-colorError",
+                          "colorPrimary": "MuiSvgIcon-colorPrimary",
+                          "colorSecondary": "MuiSvgIcon-colorSecondary",
+                          "fontSizeInherit": "MuiSvgIcon-fontSizeInherit",
+                          "fontSizeLarge": "MuiSvgIcon-fontSizeLarge",
+                          "fontSizeSmall": "MuiSvgIcon-fontSizeSmall",
+                          "root": "MuiSvgIcon-root",
+                        }
+                      }
+                    >
+                      <svg
+                        aria-hidden="true"
+                        className="MuiSvgIcon-root makeStyles-extendedIcon-7"
+                        focusable="false"
+                        role="presentation"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+                        />
+                      </svg>
+                    </ForwardRef(SvgIcon)>
+                  </WithStyles(ForwardRef(SvgIcon))>
+                </ForwardRef>
+                Add new
+              </span>
+              <NoSsr />
+            </button>
+          </ForwardRef(ButtonBase)>
+        </WithStyles(ForwardRef(ButtonBase))>
+      </ForwardRef(Fab)>
+    </WithStyles(ForwardRef(Fab))>
+  </AddNewEvent>
+</MainPanel>
+`;
