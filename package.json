@@ -79,7 +79,6 @@
     "@sensenet/controls-react": "^3.1.1",
     "@sensenet/default-content-types": "^2.0.1",
     "@sensenet/repository-events": "^1.4.4",
-    "install": "^0.13.0",
     "lodash.orderby": "^4.6.0",
     "moment": "^2.24.0",
     "monaco-editor": "^0.17.1",
