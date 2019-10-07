@@ -32,16 +32,6 @@ describe('LoginForm', () => {
     ).toEqual('testusername')
   })
 
-  it('Password change test', async () => {
-    const wrapper = mount(<LoginForm {...testprop} />)
-    act(() => {
-      ;(wrapper
-        .find(TextField)
-        .at(1)
-        .prop('onChange') as any)({ target: { value: 'testpassword' } } as any)
-    })
-  })
-
   it('Repository change test', async () => {
     const wrapper = mount(<LoginForm {...testprop} />)
     act(() => {

@@ -5,6 +5,7 @@ import { Repository } from '@sensenet/client-core'
 import MainPanel from '../src/components/mainpanel'
 import { RepositoryContext } from '../src/context/repository-provider'
 import { SharedContext } from '../src/context/shared-context'
+import EventComponent from '../src/components/event'
 import { CalendarTestEvent } from './mocks/test-objects'
 
 jest.mock('react-quill')
@@ -18,7 +19,7 @@ describe('Mainpanel', () => {
     setEvent: jest.fn(),
     opendisplaymodal: false,
     setOpendisplaymodal: jest.fn(),
-    event: content,
+    event: [content],
     refreshcalendar: true,
     setRefreshcalendar: jest.fn(),
     opennewmodal: true,
@@ -34,13 +35,16 @@ describe('Mainpanel', () => {
     let wrapper: any
     await act(async () => {
       wrapper = mount(
-        <RepositoryContext.Provider value={repo as any}>
+        <RepositoryContext.Provider value={repo}>
           <SharedContext.Provider value={shareobject as any}>
             <MainPanel />
           </SharedContext.Provider>
         </RepositoryContext.Provider>,
       )
     })
+    wrapper.update()
     expect(wrapper).toMatchSnapshot()
+    expect(wrapper.find(EventComponent)).toBeDefined()
+    expect(wrapper.find('p').text()).toContain('at Budapest')
   })
 })
