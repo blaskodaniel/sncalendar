@@ -109,7 +109,7 @@ export const ViewDialogBody: React.FunctionComponent<EditDialogBodyDialogProps> 
           <Grid container direction="row" justify="flex-end">
             <Grid item>
               <IconButton
-                aria-label="edit"
+                aria-label="remove"
                 className={classes.button}
                 onClick={() => {
                   setOpenmodal(true)

@@ -43,6 +43,30 @@ export interface GroupdByAny {
   id: string
 }
 
+const groupByDay = function(xs: CalendarEvent[], key: keyof Pick<CalendarEvent, 'StartDate'>) {
+  const resultArray: GroupdByAny[] = []
+  xs.forEach(event => {
+    const findevent = resultArray.find(
+      c =>
+        moment(new Date(c.date)).format('YYYY-MM-DD') ===
+        moment(new Date(event[key] !== undefined ? (event[key] as string) : '')).format('YYYY-MM-DD'),
+    )
+    if (findevent) {
+      findevent.event.push(event)
+      findevent.event = orderby(findevent.event, 'AllDay', 'desc')
+    } else {
+      if (event[key]) {
+        resultArray.push({
+          id: v1(),
+          date: event[key],
+          event: [event],
+        })
+      }
+    }
+  })
+  return resultArray
+}
+
 /**
  * Main component
  */
@@ -51,30 +75,6 @@ const MainPanel: React.FunctionComponent = () => {
   const repo = useRepository()
   const [data, setData] = useState<GroupdByAny[]>([])
   const sharedcontext = useContext(SharedContext)
-
-  const groupByDay = function(xs: CalendarEvent[], key: keyof Pick<CalendarEvent, 'StartDate'>) {
-    const resultArray: GroupdByAny[] = []
-    xs.forEach(event => {
-      const findevent = resultArray.find(
-        c =>
-          moment(new Date(c.date)).format('YYYY-MM-DD') ===
-          moment(new Date(event[key] !== undefined ? (event[key] as string) : '')).format('YYYY-MM-DD'),
-      )
-      if (findevent) {
-        findevent.event.push(event)
-        findevent.event = orderby(findevent.event, 'AllDay', 'desc')
-      } else {
-        if (event[key]) {
-          resultArray.push({
-            id: v1(),
-            date: event[key],
-            event: [event],
-          })
-        }
-      }
-    })
-    return resultArray
-  }
 
   useEffect(() => {
     const loadCalendar = async () => {

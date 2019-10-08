@@ -3,9 +3,7 @@ import { DialogContent, DialogTitle } from '@material-ui/core'
 import { EditView } from '@sensenet/controls-react'
 import { DialogProps } from '@material-ui/core/Dialog'
 import { ConstantContent } from '@sensenet/client-core'
-import { ContentType } from '@sensenet/default-content-types'
 import { useRepository } from '../hooks/use-repository'
-import { useSelectionService } from '../hooks/use-selection-service'
 import { CurrentContentContext, CurrentContentProvider } from '../context/current-context'
 import CalendarEvent from '../CalendarEvent-type'
 import { SharedContext } from '../context/shared-context'
@@ -14,7 +12,6 @@ const EditPropertiesDialogBody: React.FunctionComponent<{
   contentId: number
   dialogProps: DialogProps
 }> = props => {
-  const selectionService = useSelectionService()
   const repo = useRepository()
   const sharedcontext = useContext(SharedContext)
 
@@ -36,10 +33,7 @@ const EditPropertiesDialogBody: React.FunctionComponent<{
   }
 
   return (
-    <CurrentContentProvider
-      idOrPath={props.contentId}
-      onContentLoaded={(c: CalendarEvent) => selectionService.activeContent.setValue(c)}
-      oDataOptions={{ select: 'all' }}>
+    <CurrentContentProvider idOrPath={props.contentId} oDataOptions={{ select: 'all' }}>
       <CurrentContentContext.Consumer>
         {(content: CalendarEvent) =>
           content.Id !== ConstantContent.PORTAL_ROOT.Id && (
@@ -47,7 +41,7 @@ const EditPropertiesDialogBody: React.FunctionComponent<{
               <DialogTitle>Edit</DialogTitle>
               <DialogContent>
                 <EditView
-                  content={content as ContentType}
+                  content={content}
                   repository={repo}
                   handleCancel={() =>
                     props.dialogProps.onClose && props.dialogProps.onClose(null as any, 'backdropClick')
