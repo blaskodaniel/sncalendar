@@ -80,7 +80,7 @@
     "@sensenet/default-content-types": "^2.0.1",
     "@sensenet/repository-events": "^1.4.4",
     "lodash.orderby": "^4.6.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "monaco-editor": "^0.17.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
